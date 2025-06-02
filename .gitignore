@@ -1,0 +1,6 @@
+.env
+venv
+*.pyc
+.vscode
+reports
+.pytest_cache
