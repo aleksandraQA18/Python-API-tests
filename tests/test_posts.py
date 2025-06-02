@@ -1,7 +1,7 @@
 from pytest_schema import schema
 from factory.post_factory import generate_post
 from lib.posts import Posts
-from schemas.resources_schemas import *
+from schemas.posts_schema import *
 from config import LOG
 import json
 
