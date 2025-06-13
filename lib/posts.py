@@ -1,6 +1,7 @@
 from random import choice
-from urllib import response
+
 from config import API_URL, SESSION
+
 from .utils import build_request_headers
 
 

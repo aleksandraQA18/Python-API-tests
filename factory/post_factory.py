@@ -1,6 +1,7 @@
-from random import randint
-from faker import Faker
 import logging
+from random import randint
+
+from faker import Faker
 
 LOG = logging.getLogger("faker")
 LOG.setLevel(logging.INFO)
