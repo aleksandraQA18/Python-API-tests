@@ -9,6 +9,9 @@ fake = Faker()
 
 
 def generate_user():
+    """
+    Generate a random user payload for testing.
+    """
     return {
         "name": f"{fake.first_name()} {fake.last_name()}",
         "username": fake.user_name(),
@@ -21,10 +24,10 @@ def generate_user():
             "geo": {"lat": str(fake.latitude()), "lng": str(fake.longitude())},
         },
         "phone": fake.phone_number(),
-        "website": fake.company_email(),
+        "website": fake.url(),
         "company": {
             "name": fake.company(),
-            "catchPhrase": fake.word(),
-            "bs": fake.word(),
+            "catchPhrase": fake.catch_phrase(),
+            "bs": fake.bs(),
         },
     }
