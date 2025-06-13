@@ -7,6 +7,9 @@ from factory.user_factory import generate_user
 from lib.users import Users
 from schemas.users_schema import *
 
+# Note: JSONPlaceholder does not persist changes.
+# After POST, UPDATE, or DELETE, further tests with GET are not possible.
+
 
 def test_get_all_users():
     LOG.info("test_get_all_users")
@@ -33,7 +36,6 @@ def test_add_user(add_new_user):
     assert add_new_user["id"] is not None
 
 
-# not working for created post
 def test_update_user(random_user_id):
     LOG.info("test_update_user")
     payload = generate_user()

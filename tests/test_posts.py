@@ -5,6 +5,9 @@ from factory.post_factory import generate_post
 from lib.posts import Posts
 from schemas.posts_schema import *
 
+# Note: JSONPlaceholder does not persist changes.
+# After POST, UPDATE, or DELETE, further tests with GET are not possible.
+
 
 def test_get_all_posts():
     LOG.info("test_get_all_posts")
@@ -31,7 +34,6 @@ def test_add_post(add_new_post):
     assert add_new_post["id"] is not None
 
 
-# not working for created post
 def test_update_post(random_post_id):
     LOG.info("test_update_post")
     payload = generate_post()
