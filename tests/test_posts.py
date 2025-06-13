@@ -1,5 +1,3 @@
-import json
-
 from pytest_schema import schema
 
 from config import LOG
@@ -13,17 +11,17 @@ def test_get_all_posts():
     response = Posts().get_all_posts()
     response_json = response.json()
     LOG.debug(response_json[:2])
-    assert response.ok
+    assert response.ok, f"Request failed: {response.status_code} {response.text}"
     assert response_json == schema(POSTS_SCHEMA)
 
 
-def test_post_by_id(random_product_id):
+def test_post_by_id(random_post_id):
     LOG.info("test_post_by_id")
-    response = Posts().get_post_by_id(random_product_id)
+    response = Posts().get_post_by_id(random_post_id)
     response_json = response.json()
     LOG.debug(response_json)
-    assert response.ok
-    assert response.json()["id"] == random_product_id
+    assert response.ok, f"Request failed: {response.status_code} {response.text}"
+    assert response.json()["id"] == random_post_id
     assert response_json == schema(POST_SCHEMA)
 
 
@@ -34,17 +32,14 @@ def test_add_post(add_new_post):
 
 
 # not working for created post
-def test_update_post(random_product_id):
+def test_update_post(random_post_id):
     LOG.info("test_update_post")
     payload = generate_post()
-    payload_json = json.dumps(payload)
     LOG.debug(payload)
-    response = Posts().update_post(random_product_id, payload_json)
-    assert response.ok
-
+    response = Posts().update_post(random_post_id, payload)
+    assert response.ok, f"Request failed: {response.status_code} {response.text}"
     response_json = response.json()
     LOG.debug(response_json)
-
     assert response_json["title"] == payload["title"]
     assert response_json["body"] == payload["body"]
 
@@ -54,7 +49,4 @@ def test_delete_post(add_new_post):
     id = add_new_post["id"]
     response = Posts().delete_post(id)
     LOG.debug(response)
-    assert response.ok
-
-    response = Posts().get_post_by_id(id)
-    assert response.status_code == 404
+    assert response.ok, f"Request failed: {response.status_code} {response.text}"

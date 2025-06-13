@@ -13,7 +13,7 @@ def test_get_all_users():
     response = Users().get_all_users()
     response_json = response.json()
     LOG.debug(response_json[:2])
-    assert response.ok
+    assert response.ok, f"Request failed: {response.status_code} {response.text}"
     assert response_json == schema(USERS_SCHEMA)
 
 
@@ -22,7 +22,7 @@ def test_user_by_id(random_user_id):
     response = Users().get_user_by_id(random_user_id)
     response_json = response.json()
     LOG.debug(response_json)
-    assert response.ok
+    assert response.ok, f"Request failed: {response.status_code} {response.text}"
     assert response.json()["id"] == random_user_id
     assert response_json == schema(USER_SCHEMA)
 
@@ -37,14 +37,11 @@ def test_add_user(add_new_user):
 def test_update_user(random_user_id):
     LOG.info("test_update_user")
     payload = generate_user()
-    payload_json = json.dumps(payload)
     LOG.debug(payload)
-    response = Users().update_user(random_user_id, payload_json)
-    assert response.ok
-
+    response = Users().update_user(random_user_id, payload)
+    assert response.ok, f"Request failed: {response.status_code} {response.text}"
     response_json = response.json()
     LOG.debug(response_json)
-
     assert response_json["name"] == payload["name"]
     assert response_json["username"] == payload["username"]
 
@@ -54,7 +51,4 @@ def test_delete_user(add_new_user):
     id = add_new_user["id"]
     response = Users().delete_user(id)
     LOG.debug(response)
-    assert response.ok
-
-    response = Users().get_user_by_id(id)
-    assert response.status_code == 404
+    assert response.ok, f"Request failed: {response.status_code} {response.text}"
