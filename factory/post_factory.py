@@ -10,6 +10,9 @@ fake = Faker()
 
 
 def generate_post():
+    """
+    Generate a random post payload for testing.
+    """
     return {
         "title": fake.word(),
         "body": fake.sentence(nb_words=10),
