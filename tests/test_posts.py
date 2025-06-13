@@ -1,9 +1,11 @@
+import json
+
 from pytest_schema import schema
+
+from config import LOG
 from factory.post_factory import generate_post
 from lib.posts import Posts
 from schemas.posts_schema import *
-from config import LOG
-import json
 
 
 def test_get_all_posts():
